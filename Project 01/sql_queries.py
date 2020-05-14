@@ -1,5 +1,3 @@
-user_table_insert free and paid services by user update the level of user to paid While Inserts for artists and for time, do nothing for existing records.
-
 # DROP TABLES
 songplay_table_drop = "DROP TABLE IF EXISTS SONGPLAY;"
 user_table_drop = "DROP TABLE IF EXISTS USERS;"

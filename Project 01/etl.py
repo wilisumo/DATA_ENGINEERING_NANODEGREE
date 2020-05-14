@@ -8,7 +8,6 @@ def process_song_file(cur, filepath):
     """
     Description: This function can be used to read the file in the filepath (data/song_data)
     to get the song and artist info and used to populate the song and artist dim tables.
-
     Arguments:
         cur: the cursor object. 
         filepath: Song data file path. 
@@ -16,7 +15,7 @@ def process_song_file(cur, filepath):
     Returns:
         None
     """
-    # open song file
+    #open song file
     print(filepath)
     df = pd.read_json(filepath,lines=True)
     # insert song record
@@ -26,9 +25,9 @@ def process_song_file(cur, filepath):
     artist_data = df[['artist_id','artist_name','artist_location','artist_longitude','artist_latitude']].values[0].tolist()
     cur.execute(artist_table_insert, artist_data)
 
-
+    
 def process_log_file(cur, filepath):
-     """
+    """
     Description: This function can be used to read the file in the filepath (data/log_data)
     to get the user and time info and used to populate the users ,time dim tables and songplay fact table.
 
@@ -39,7 +38,7 @@ def process_log_file(cur, filepath):
     Returns:
         None
     """
-    # open log file
+    #open log file
     df = pd.read_json(filepath,lines=True)
 
     # filter by NextSong action
@@ -90,7 +89,7 @@ def process_log_file(cur, filepath):
 
 
 def process_data(cur, conn, filepath, func):
-     """
+    """
     Description: This function can be used to get all files matching extension from a given directory
     to process and load data such as song_file and log_file to the sparkify DWH.
 
@@ -103,7 +102,6 @@ def process_data(cur, conn, filepath, func):
     Returns:
         None
     """
-    
     # get all files matching extension from directory
     all_files = []
     for root, dirs, files in os.walk(filepath):
@@ -127,7 +125,6 @@ def main():
     cur = conn.cursor()
     process_data(cur, conn, filepath='data/song_data', func=process_song_file)
     process_data(cur, conn, filepath='data/log_data', func=process_log_file)
-
     conn.close()
 
 
